@@ -1,95 +1,74 @@
-#Create a Python script that analyzes the votes and calculates each of the following:
-# -->>  The total number of votes cast
-# -->>  A complete list of candidates who received votes
-# -->>  The percentage of votes each candidate won
-# -->>  The total number of votes each candidate won
-# -->>  The winner of the election based on popular vote
+# 1 The total number of votes cast
+# 2 A complete list of candidates who received votes
+# 3 The percentage of votes each candidate won
+# 4 The total number of votes each candidate won
+# 5 The winner of the election based on popular vote
 
 
-# Import dependencies
+# Import functions
 import os
 import csv
 import collections
 from collections import Counter
 
-# Define PyPoll's variables
-voters_candidates = []
-votes_per_candidate = []
+# set parameters
+candidates_w_votes = []
+candidate_vote_tally = []
 
-# Change directory to the directory of current python script
-os.chdir(os.path.dirname(__file__))
-
-# Path to collect data from the Resources folder
+# set path
 election_data_csv_path = os.path.join("Resources", "election_data.csv")
 
-# Open and read csv
+# open CSV and read
 with open(election_data_csv_path, newline="") as csvfile:
-
     csv_reader = csv.reader(csvfile, delimiter=",")
 
-    # Read the header row first
+    # there is a header, read it
     csv_header = next(csvfile)
 
-    #print(f"Header: {csv_header}")
-    # This prints -->> Header: Voter ID,Country,Candidate
-    # Read through each row of data after the header
+    # print(f"Header: {csv_header}") - code check 
     for row in csv_reader:
-
-        voters_candidates.append(row[2])
+        candidates_w_votes.append(row[2])
 
     # Sort the list by default ascending order
-    sorted_list = sorted(voters_candidates)
+    sorted_list = sorted(candidates_w_votes)
 
-    #sorted_list = sorted(voters_candidates, reverse=True) 
-    #sorted_list.sort(reverse=True) 
-
-    #for key, group in groupby(sorted_list):
-    
     # Arrange the sorted list by most common outcomes
     arrange_list = sorted_list
 
     #count votes per candidate in most common outcome order and append to a list
     count_candidate = Counter (arrange_list) 
-    votes_per_candidate.append(count_candidate.most_common())
+    candidate_vote_tally.append(count_candidate.most_common())
 
     # calculate the percentage of votes per candicate in 3 digital points
-    for item in votes_per_candidate:
+    for item in candidate_vote_tally:
        
-        first = format((item[0][1])*100/(sum(count_candidate.values())),'.3f')
-        second = format((item[1][1])*100/(sum(count_candidate.values())),'.3f')
-        third = format((item[2][1])*100/(sum(count_candidate.values())),'.3f')
-        fourth = format((item[3][1])*100/(sum(count_candidate.values())),'.3f')
+        slot2 = format((item[1][1])*100/(sum(count_candidate.values())),'.3f')
+        slot1 = format((item[0][1])*100/(sum(count_candidate.values())),'.3f')
+        slot3 = format((item[2][1])*100/(sum(count_candidate.values())),'.3f')
           
-    #print(c.most_common())
-    #print(c.values())
-    #print(c.keys())
-    #print(sum(c.values()))
-
-# -->>  Export a text file with the results
-election_file = os.path.join("Output", "election_data.txt")
+# export a text file 
+election_file = os.path.join("Analysis", "election_data.txt")
 with open(election_file, "w") as outfile:
 
     outfile.write("Election Results\n")
-    outfile.write("-------------------------\n")
+    outfile.write("-----------------------------------\n")
     outfile.write(f"Total Votes:  {sum(count_candidate.values())}\n")
-    outfile.write("-------------------------\n")
-    outfile.write(f"{votes_per_candidate[0][0][0]}: {first}% ({votes_per_candidate[0][0][1]})\n")
-    outfile.write(f"{votes_per_candidate[0][1][0]}: {second}% ({votes_per_candidate[0][1][1]})\n")
-    outfile.write(f"{votes_per_candidate[0][2][0]}: {third}% ({votes_per_candidate[0][2][1]})\n")
-    outfile.write(f"{votes_per_candidate[0][3][0]}: {fourth}% ({votes_per_candidate[0][3][1]})\n")
-    outfile.write("-------------------------\n")
-    outfile.write(f"Winner:  {votes_per_candidate[0][0][0]}\n")
-    outfile.write("-------------------------\n")    
+    outfile.write("-----------------------------------\n")
+    outfile.write(f"{candidate_vote_tally[0][1][0]}: {slot2}% ({candidate_vote_tally[0][1][1]})\n")
+    outfile.write(f"{candidate_vote_tally[0][0][0]}: {slot1}% ({candidate_vote_tally[0][0][1]})\n")
+    outfile.write(f"{candidate_vote_tally[0][2][0]}: {slot3}% ({candidate_vote_tally[0][2][1]})\n")
+    outfile.write("-----------------------------------\n")
+    outfile.write(f"Winner:  {candidate_vote_tally[0][0][0]}\n")
+    outfile.write("-----------------------------------\n")  
 
-    # -->>  Print the analysis to the terminal
+# print to Git Bash
 print("Election Results")
-print("-------------------------")
+print("-----------------------------------")
 print(f"Total Votes:  {sum(count_candidate.values())}")
-print("-------------------------")
-print(f"{votes_per_candidate[0][0][0]}: {first}% ({votes_per_candidate[0][0][1]})")
-print(f"{votes_per_candidate[0][1][0]}: {second}% ({votes_per_candidate[0][1][1]})")
-print(f"{votes_per_candidate[0][2][0]}: {third}% ({votes_per_candidate[0][2][1]})")
-print(f"{votes_per_candidate[0][3][0]}: {fourth}% ({votes_per_candidate[0][3][1]})")
-print("-------------------------")
-print(f"Winner:  {votes_per_candidate[0][0][0]}")
-print("-------------------------")
+print("-----------------------------------")
+print(f"{candidate_vote_tally[0][1][0]}: {slot2}% ({candidate_vote_tally[0][1][1]})")
+print(f"{candidate_vote_tally[0][0][0]}: {slot1}% ({candidate_vote_tally[0][0][1]})")
+print(f"{candidate_vote_tally[0][2][0]}: {slot3}% ({candidate_vote_tally[0][2][1]})")
+print("-----------------------------------")
+print(f"Winner:  {candidate_vote_tally[0][0][0]}")
+print("-----------------------------------")
