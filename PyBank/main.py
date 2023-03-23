@@ -31,9 +31,6 @@ with open(budget_csv_path, newline="") as csvfile:
 
     # csv has a header - read it first
     csv_header = next(csvfile)
-
-    # print header values
-    print(f"Header: {csv_header}")
         
     # loop through data after the header
     for row in csv_reader:
@@ -80,23 +77,43 @@ with open(budget_csv_path, newline="") as csvfile:
     best_month = months[highest_month_index]
     worst_month = months[lowest_month_index]
 
-# print a readout to git bash
-print("Financial Analysis")
-print("-----------------------------------------------")
-print(f"Total Months:  {month_counter}")
-print(f"Total:  ${P_L_net}")
-print(f"Average Change:  ${average_profit_loss}")
-print(f"Greatest Increase in Profits:  {best_month} (${highest_change})")
-print(f"Greatest Decrease in Losses:  {worst_month} (${lowest_change})")
 
-# write to a text file
-budget_file = os.path.join("Resources", "budget_data.txt")
-with open(budget_file, "w") as output:
+#(ignore): this was my original print code for the .TXT and Git print)
+# # print a readout to git bash
+# print("Financial Analysis")
+# print("-----------------------------------------------")
+# print(f"Total Months:  {month_counter}")
+# print(f"Total:  ${P_L_net}")
+# print(f"Average Change:  ${average_profit_loss}")
+# print(f"Greatest Increase in Profits:  {best_month} (${highest_change})")
+# print(f"Greatest Decrease in Losses:  {worst_month} (${lowest_change})")
 
-    output.write("Financial Analysis\n")
-    output.write("--------------------------------------------\n")
-    output.write(f"Total Months:  {month_counter}\n")
-    output.write(f"Total:  ${P_L_net}\n")
-    output.write(f"Average Change:  ${average_profit_loss}\n")
-    output.write(f"Greatest Increase in Profits:  {best_month} (${highest_change})\n")
-    output.write(f"Greatest Decrease in Losses:  {worst_month} (${lowest_change})\n")
+# # write to a text file
+# budget_file = os.path.join("Analysis", "budget_data.txt")
+# with open(budget_file, "w") as output:
+
+#     output.write("Financial Analysis\n")
+#     output.write("--------------------------------------------\n")
+#     output.write(f"Total Months:  {month_counter}\n")
+#     output.write(f"Total:  ${P_L_net}\n")
+#     output.write(f"Average Change:  ${average_profit_loss}\n")
+#     output.write(f"Greatest Increase in Profits:  {best_month} (${highest_change})\n")
+#     output.write(f"Greatest Decrease in Losses:  {worst_month} (${lowest_change})\n")
+
+#UPDATED CODE: used a more efficient code posted by TA Erin Mills (thank you, Erin!)
+print_path = os.path.join("Analysis", "budget_data.txt")
+print_path = "budget_data.txt"
+
+with open(print_path, "w+") as file:
+      # Message that combines multiple printed lines
+    message1 = (
+    f"Financial Analysis\n"
+    f"--------------------------------------------\n"
+    f"Total Months:  {month_counter}\n"
+    f"Total:  ${P_L_net}\n"
+    f"Average Change:  ${average_profit_loss}\n"
+    f"Greatest Increase in Profits:  {best_month} (${highest_change})\n"
+    f"Greatest Decrease in Losses:  {worst_month} (${lowest_change})\n"
+    )
+    print(message1)
+    file.write(f"{message1}\n")

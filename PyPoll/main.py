@@ -39,36 +39,57 @@ with open(election_data_csv_path, newline="") as csvfile:
     count_candidate = Counter (arrange_list) 
     candidate_vote_tally.append(count_candidate.most_common())
 
-    # calculate the percentage of votes per candicate in 3 digital points
+    # calculate the percentage of votes per candicate
     for item in candidate_vote_tally:
        
         slot2 = format((item[1][1])*100/(sum(count_candidate.values())),'.3f')
         slot1 = format((item[0][1])*100/(sum(count_candidate.values())),'.3f')
         slot3 = format((item[2][1])*100/(sum(count_candidate.values())),'.3f')
           
-# export a text file 
-election_file = os.path.join("Analysis", "election_data.txt")
-with open(election_file, "w") as outfile:
+# (ISGNORE: This was my orginal code for the export a text file and print to Git Bash"
+# election_file = os.path.join("Analysis", "election_data.txt")
+# with open(election_file, "w") as outfile:
 
-    outfile.write("Election Results\n")
-    outfile.write("-----------------------------------\n")
-    outfile.write(f"Total Votes:  {sum(count_candidate.values())}\n")
-    outfile.write("-----------------------------------\n")
-    outfile.write(f"{candidate_vote_tally[0][1][0]}: {slot2}% ({candidate_vote_tally[0][1][1]})\n")
-    outfile.write(f"{candidate_vote_tally[0][0][0]}: {slot1}% ({candidate_vote_tally[0][0][1]})\n")
-    outfile.write(f"{candidate_vote_tally[0][2][0]}: {slot3}% ({candidate_vote_tally[0][2][1]})\n")
-    outfile.write("-----------------------------------\n")
-    outfile.write(f"Winner:  {candidate_vote_tally[0][0][0]}\n")
-    outfile.write("-----------------------------------\n")  
+#     outfile.write("Election Results\n")
+#     outfile.write("-----------------------------------\n")
+#     outfile.write(f"Total Votes:  {sum(count_candidate.values())}\n")
+#     outfile.write("-----------------------------------\n")
+#     outfile.write(f"{candidate_vote_tally[0][1][0]}: {slot2}% ({candidate_vote_tally[0][1][1]})\n")
+#     outfile.write(f"{candidate_vote_tally[0][0][0]}: {slot1}% ({candidate_vote_tally[0][0][1]})\n")
+#     outfile.write(f"{candidate_vote_tally[0][2][0]}: {slot3}% ({candidate_vote_tally[0][2][1]})\n")
+#     outfile.write("-----------------------------------\n")
+#     outfile.write(f"Winner:  {candidate_vote_tally[0][0][0]}\n")
+#     outfile.write("-----------------------------------\n")  
 
-# print to Git Bash
-print("Election Results")
-print("-----------------------------------")
-print(f"Total Votes:  {sum(count_candidate.values())}")
-print("-----------------------------------")
-print(f"{candidate_vote_tally[0][1][0]}: {slot2}% ({candidate_vote_tally[0][1][1]})")
-print(f"{candidate_vote_tally[0][0][0]}: {slot1}% ({candidate_vote_tally[0][0][1]})")
-print(f"{candidate_vote_tally[0][2][0]}: {slot3}% ({candidate_vote_tally[0][2][1]})")
-print("-----------------------------------")
-print(f"Winner:  {candidate_vote_tally[0][0][0]}")
-print("-----------------------------------")
+# # print to Git Bash
+# print("Election Results")
+# print("-----------------------------------")
+# print(f"Total Votes:  {sum(count_candidate.values())}")
+# print("-----------------------------------")
+# print(f"{candidate_vote_tally[0][1][0]}: {slot2}% ({candidate_vote_tally[0][1][1]})")
+# print(f"{candidate_vote_tally[0][0][0]}: {slot1}% ({candidate_vote_tally[0][0][1]})")
+# print(f"{candidate_vote_tally[0][2][0]}: {slot3}% ({candidate_vote_tally[0][2][1]})")
+# print("-----------------------------------")
+# print(f"Winner:  {candidate_vote_tally[0][0][0]}")
+# print("-----------------------------------")
+
+print_path = os.path.join("Analysis", "election_data.txt")
+print_path = "election_data.txt"
+
+#UPDATED CODE: used a more efficient code posted by TA Erin Mills (thank you, Erin!)
+with open(print_path, "w+") as file:
+      # Message that combines multiple printed lines
+    message1 = (
+    f"Election Results\n"
+    f"--------------------------------------------\n"
+    f"Total Votes:  {sum(count_candidate.values())}\n"
+    f"--------------------------------------------\n"
+    f"{candidate_vote_tally[0][1][0]}: {slot2}% ({candidate_vote_tally[0][1][1]})\n"
+    f"{candidate_vote_tally[0][0][0]}: {slot1}% ({candidate_vote_tally[0][0][1]})\n"
+    f"{candidate_vote_tally[0][2][0]}: {slot3}% ({candidate_vote_tally[0][2][1]})\n"
+    f"--------------------------------------------\n"
+    f"Winner:  {candidate_vote_tally[0][0][0]}\n"
+    f"--------------------------------------------\n"
+    )
+    print(message1)
+    file.write(f"{message1}\n")
