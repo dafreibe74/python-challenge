@@ -10,7 +10,7 @@ For PyBank:
 - define and populate the highest and lowest changes
 - define and popukate the highest and lowes month
 - Initial code replicated the same print method approach for the .txt and git bash in two large blocks
-- Revised code to accomplish both in 1 smaller block
+- Revised code to accomplish both in 1 smaller block (code method and syntax from TA, Erin Mills- Thank you Erin!)
 
 For PyPoll:
 - imported functions
@@ -19,4 +19,4 @@ For PyPoll:
 - count votes per candidate & populate
 - calculate the # per candidate & populate
 - Initial code replicated the same print method approach for the .txt and git bash in two large blocks
-- Revised code to accomplish both in 1 smaller block
+- Revised code to accomplish both in 1 smaller block (code method and syntax from TA, Erin Mills- Thank you Erin!)
